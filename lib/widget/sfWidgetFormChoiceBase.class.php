@@ -33,7 +33,7 @@ abstract class sfWidgetFormChoiceBase extends sfWidgetForm
   protected function configure($options = array(), $attributes = array())
   {
     $this->addRequiredOption('choices');
-    $this->addOption('translate_choices', true);
+    $this->addOption('translate_choices', false);
   }
 
   /**
