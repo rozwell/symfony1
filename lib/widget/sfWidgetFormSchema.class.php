@@ -559,10 +559,19 @@ class sfWidgetFormSchema extends sfWidgetForm implements ArrayAccess
         $field = $this->renderField($name, $value, $widgetAttributes, $error);
 
         // don't add a label tag and errors if we embed a form schema
-        $label = $widget instanceof sfWidgetFormSchema ? $this->getFormFormatter()->generateLabelName($name) : $this->getFormFormatter()->generateLabel($name);
+        // Why not? Why the hell string is better than something you can actually hide?!
+        if ($widget instanceof sfWidgetFormSchema)
+        {
+          //$label = $this->renderContentTag('span', $this->getFormFormatter()->generateLabelName($name), array('class' => 'label_'.$name));
+          $label = $this->getFormFormatter()->generateLabel($name);
+        }
+        else
+        {
+          $label = $this->getFormFormatter()->generateLabel($name);
+        }
         $error = $widget instanceof sfWidgetFormSchema ? array() : $error;
 
-        $rows[] = $formFormat->formatRow($label, $field, $error, $this->getHelp($name));
+        $rows[] = $formFormat->formatRow($label, $field, $error, $this->getHelp($name), null, $name);
       }
     }
 
