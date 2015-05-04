@@ -605,12 +605,12 @@ function _post_javascript_function()
 
 function _method_javascript_function($method)
 {
-  $function = "var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'post'; f.action = this.href;";
+  $function = "var f = document.createElement('form'); f.style.display = 'none'; this.parentNode.appendChild(f); f.method = 'post'; f.action = this.href; ";
 
   if ('post' != strtolower($method))
   {
     $function .= "var m = document.createElement('input'); m.setAttribute('type', 'hidden'); ";
-    $function .= sprintf("m.setAttribute('name', 'sf_method'); m.setAttribute('value', '%s'); f.appendChild(m);", strtolower($method));
+    $function .= sprintf("m.setAttribute('name', 'sf_method'); m.setAttribute('value', '%s'); f.appendChild(m); ", strtolower($method));
   }
 
   // CSRF protection
@@ -618,10 +618,13 @@ function _method_javascript_function($method)
   if ($form->isCSRFProtected())
   {
     $function .= "var m = document.createElement('input'); m.setAttribute('type', 'hidden'); ";
-    $function .= sprintf("m.setAttribute('name', '%s'); m.setAttribute('value', '%s'); f.appendChild(m);", $form->getCSRFFieldName(), $form->getCSRFToken());
+    $function .= sprintf("m.setAttribute('name', '%s'); m.setAttribute('value', '%s'); f.appendChild(m); ", $form->getCSRFFieldName(), $form->getCSRFToken());
   }
 
-  $function .= "f.submit();";
+  // Workaround for javascript onsubmit event
+  $function .= "var b = document.createElement('input'); b.setAttribute('type', 'submit'); f.appendChild(b); ";
+  $function .= sprintf("if(typeof sfOnSubmit%1\$sFunction != 'undefined'){ f.onsubmit = sfOnSubmit%1\$sFunction; } ", sfInflector::camelize($method));
+  $function .= "b.click();";
 
   return $function;
 }
