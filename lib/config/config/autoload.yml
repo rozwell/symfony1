@@ -1,4 +1,9 @@
 autoload:
+  #core
+  symfony_core:
+    name:           symfony_core
+    path:           %SF_SYMFONY_LIB_DIR%
+    recursive:      true
   # project
   project:
     name:           project
