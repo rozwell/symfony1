@@ -103,7 +103,12 @@ class sfWidgetFormSelect extends sfWidgetFormChoiceBase
           $attributes['selected'] = 'selected';
         }
 
-        $options[] = $this->renderContentTag('option', self::escapeOnce($option), $attributes);
+        $option = self::escapeOnce($option);
+        if (!strlen(trim($option)) && !isset($attributes['label'])){
+          $attributes['label'] = ' ';
+        }
+
+        $options[] = $this->renderContentTag('option', $option, $attributes);
       }
     }
 
