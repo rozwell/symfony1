@@ -349,7 +349,7 @@ function image_tag($source, $options = array())
     unset($options['raw_name']);
   }
 
-  if (isset($options['alt_title']))
+  if (array_key_exists('alt_title', $options))
   {
     // set as alt and title but do not overwrite explicitly set
     if (!isset($options['alt']))
