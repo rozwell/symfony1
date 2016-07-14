@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 require_once dirname(__FILE__) . '/../../bootstrap/unit.php';
-require_once sfConfig::get('sf_symfony_lib_dir').'/vendor/swiftmailer/classes/Swift.php';
+require_once sfConfig::get('sf_symfony_lib_dir').'/vendor/swiftmailer/lib/classes/Swift.php';
 Swift::registerAutoload();
 sfMailer::initialize();
 require_once dirname(__FILE__).'/fixtures/TestMailerTransport.class.php';

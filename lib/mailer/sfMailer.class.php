@@ -80,7 +80,7 @@ class sfMailer extends Swift_Mailer
     {
       foreach ($options['transport']['param'] as $key => $value)
       {
-        $method = 'set'.ucfirst($key);
+        $method = 'set'.sfInflector::camelize($key);
         if (method_exists($transport, $method))
         {
           $transport->$method($value);
@@ -326,6 +326,6 @@ class sfMailer extends Swift_Mailer
 
   static public function initialize()
   {
-    require_once sfConfig::get('sf_symfony_lib_dir').'/vendor/swiftmailer/swift_init.php';
+    require_once sfConfig::get('sf_symfony_lib_dir').'/vendor/swiftmailer/lib/swift_init.php';
   }
 }

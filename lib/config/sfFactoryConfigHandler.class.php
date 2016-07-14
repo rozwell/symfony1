@@ -217,7 +217,7 @@ class sfFactoryConfigHandler extends sfYamlConfigHandler
 
         case 'mailer':
           $instances[] = sprintf(
-                        "require_once sfConfig::get('sf_symfony_lib_dir').'/vendor/swiftmailer/classes/Swift.php';\n".
+                        "require_once sfConfig::get('sf_symfony_lib_dir').'/vendor/swiftmailer/lib/classes/Swift.php';\n".
                         "Swift::registerAutoload();\n".
                         "sfMailer::initialize();\n".
                         "\$this->setMailerConfiguration(array_merge(array('class' => sfConfig::get('sf_factory_mailer', '%s')), sfConfig::get('sf_factory_mailer_parameters', %s)));\n"
