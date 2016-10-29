@@ -1,3 +1,8 @@
+WARNING
+-------
+This is a PHP7 compatible symfony 1.4 version. It has some minor improvements and should be production safe.
+Because it's main purpose is to work with sfPropelORMPlugin, old bundled Doctrine and Propel plugins have been removed.
+
 Symfony is a complete framework designed to optimize the development of web applications by way of several key features.
 For starters, it separates a web application's business rules, server logic, and presentation views.
 It contains numerous tools and classes aimed at shortening the development time of a complex web application.
