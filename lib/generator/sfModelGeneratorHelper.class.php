@@ -51,4 +51,31 @@ abstract class sfModelGeneratorHelper
 
     return '<li class="sf_admin_action_save_and_add"><input type="submit" value="'.__($params['label'], array(), 'sf_admin').'" name="_save_and_add" /></li>';
   }
+
+  public function getAttributesFromParams($params)
+  {
+     return isset($params['attributes']) ? (array)$params['attributes'] : array();
+  }
+
+  static public function escapeOnce($value)
+  {
+    return self::fixDoubleEscape(htmlspecialchars(!is_array($value) ? (string) $value : null, ENT_QUOTES));
+  }
+
+  static public function fixDoubleEscape($escaped)
+  {
+    return preg_replace('/&amp;([a-z]+|(#\d+)|(#x[\da-f]+));/i', '&$1;', $escaped);
+  }
+
+  public function attributesToHtml($attributes)
+  {
+    $attributes = (array)$attributes;
+
+    return implode('', array_map(array($this, 'attributesToHtmlCallback'), array_keys($attributes), array_values($attributes)));
+  }
+
+  protected function attributesToHtmlCallback($k, $v)
+  {
+    return false === $v || null === $v || ('' === $v && 'value' != $k) ? '' : sprintf(' %s="%s"', $k, $this->escapeOnce($v));
+  }
 }
